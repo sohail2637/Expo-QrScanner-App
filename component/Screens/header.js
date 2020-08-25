@@ -5,12 +5,13 @@ import { NavigationContainer } from '@react-navigation/native';
 
 const Header = (props) => {
     return (
-        <TouchableOpacity   style={{backgroundColor:"#00ced1"}}
+        <TouchableOpacity   style={{backgroundColor:"#00ced1",marginTop:30}}
          onPress={() => {
-            Navigation.navigate('draweropen ');
+           props.Navigation.navigate('draweropen');
                     }}>
-            <View style={{ marginLeft: 10 }}>
-                <Ionicons name="md-menu" size={32} color="red" />
+            <View style={{margin:5,}}>
+                <Ionicons name="md-menu" size={32} color="black" />
+                {/* <Text>this app</Text>                 */}
             </View>
         </TouchableOpacity>
     );

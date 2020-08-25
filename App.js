@@ -1,7 +1,8 @@
 import "react-native-gesture-handler";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import {  createStackNavigator,  HeaderStyleInterpolators,
+import {
+  createStackNavigator, HeaderStyleInterpolators,
 } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -11,7 +12,7 @@ import { Image, Platform } from "react-native";
 import { BorderlessButton } from "react-native-gesture-handler";
 import { preventAutoHide } from "expo/build/launch/SplashScreen";
 
-import Header from'./component/Screens/header'
+import Header from './component/Screens/header'
 
 import HomeScreen from "./component/Screens/Home-Screen";
 import AboutScreen from "./component/Screens/About-Screen";
@@ -25,7 +26,7 @@ const drawer = createDrawerNavigator();
 function App(props) {
   return (
     <NavigationContainer>
-      <Header style={{}}/>
+      {/* <Header style={{ }} /> */}
       <drawer.Navigator
         screenOptions={(props) => ({
           tabBarIcon: ({ Focused, color, size }) => {
@@ -75,7 +76,7 @@ function App(props) {
           options={{ title: "About communitey" }}
           component={AboutCommunitey}
         />
-        
+
         <drawer.Screen
           name="help"
           initialParams={{ name: "default" }}

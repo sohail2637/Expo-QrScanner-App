@@ -8,7 +8,7 @@ export default class AboutScreen extends React.Component{
     const { mydata } = this.props.route.params;
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>{mydata==="" ? defvalue : mydata}</Text>
+        {/* <Text>{mydata==="" ? defvalue : mydata}</Text> */}
         <Text>About Screen</Text>
         <Text>About Screen</Text>
         <Button title="Home" onPress={() => { this.props.navigation.navigate("Home") }} />
