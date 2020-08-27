@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
-import Header from './header'
+import Header from "./header";
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -17,7 +17,7 @@ export default function App() {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-    console.log(`this is data...${type}......${data}`)
+    console.log(`this is data...${type}......${data}`);
   };
 
   if (hasPermission === null) {
@@ -36,7 +36,7 @@ export default function App() {
         padding: 15,
       }}
     >
-      <Header/>
+      {/* <Header/> */}
       {/* <View
         style={{
           width: "100%",
@@ -75,7 +75,10 @@ export default function App() {
               of local stores for purchasing!
             </Text>
           </View>
-          <Button title={"Tap to Scaning"} onPress={() => setOpenScanner(true)} />
+          <Button
+            title={"Tap to Scaning"}
+            onPress={() => setOpenScanner(true)}
+          />
         </View>
       )}
 

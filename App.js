@@ -1,33 +1,32 @@
 import "react-native-gesture-handler";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import {
-  createStackNavigator, HeaderStyleInterpolators,
-} from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+// import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createStackNavigator } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
 
-import { Image, Platform } from "react-native";
-import { BorderlessButton } from "react-native-gesture-handler";
-import { preventAutoHide } from "expo/build/launch/SplashScreen";
-
-import Header from './component/Screens/header'
+import Header from "./component/Screens/header";
 
 import HomeScreen from "./component/Screens/Home-Screen";
-import AboutScreen from "./component/Screens/About-Screen";
+import HistoryScreen from "./component/Screens/history-Screen";
 import ContactScreen from "./component/Screens/Contact-Screen";
-import AboutCommunitey from './component/Screens/about-commuitey-screen';
-import HelpScreen from './component/Screens/help-screen';
-// import LoginScreen from "./component/autentacation/login";
-// import SignupScreen from './component/autentacation/signup';
+import AboutCommunitey from "./component/Screens/about-commuitey-screen";
+import HelpScreen from "./component/Screens/help-screen";
+import LoginScreen from "./component/autentacation/login";
+import SignupScreen from "./component/autentacation/signup";
 
-const drawer = createDrawerNavigator();
+// const drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
+
 function App(props) {
   return (
     <NavigationContainer>
-      {/* <Header style={{ }} /> */}
-      <drawer.Navigator
+      {/* // <Header style={{}} /> */}
+      <Stack.Navigator headerMode="none">
+        <Stack.Screen name="signup" component={SignupScreen} />
+        <Stack.Screen name="login" component={LoginScreen} />
+      </Stack.Navigator>
+      {/* <drawer.Navigator
         screenOptions={(props) => ({
           tabBarIcon: ({ Focused, color, size }) => {
             let iconName;
@@ -68,7 +67,7 @@ function App(props) {
           name="About"
           initialParams={{ name: "default" }}
           options={{ title: "History " }}
-          component={AboutScreen}
+          component={HistoryScreen}
         />
         <drawer.Screen
           name="communitey"
@@ -83,7 +82,7 @@ function App(props) {
           options={{ title: "Help" }}
           component={HelpScreen}
         />
-      </drawer.Navigator>
+      </drawer.Navigator>  */}
     </NavigationContainer>
   );
 }
