@@ -100,19 +100,19 @@ function App(props) {
   };
 
   useEffect(() => {
-    (async () =>
-      await Font.loadAsync({
-        Roboto: require("native-base/Fonts/Roboto.ttf"),
-        Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
-      }))();
+    // (async () =>
+    //   await Font.loadAsync({
+    //     Roboto: require("native-base/Fonts/Roboto.ttf"),
+    //     Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+    //   }))();
     detectLogin();
   }, []);
 
   return (
     <NavigationContainer>
       <Stack.Navigator headerMode="none">
-        <Stack.Screen name="login" component={LoginScreen} />
         <Stack.Screen name="signup" component={SignupScreen} />
+        <Stack.Screen name="login" component={LoginScreen} />
         <Stack.Screen name="Home" component={DrawerRoutes} />
       </Stack.Navigator>
     </NavigationContainer>

@@ -5,7 +5,7 @@ import {
   Content,
   Form,
   Item,
-  InputText,
+  Input,
   Label,
   Button,
   Text,
@@ -30,12 +30,12 @@ const Signiupscreen = (props) => {
   const [password, setpassword] = useState("");
 
   const sendCred = async () => {
-    console.log(email, password);
-    fetch("https://cfac86950ae7.ngrok.io/signup", {
+    console.log(email, password + "thi is sign up form data");
+    fetch("https://9e4c184a750e.ngrok.io/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
       },
       body: JSON.stringify({
         email: email,
@@ -44,11 +44,11 @@ const Signiupscreen = (props) => {
     })
       .then((res) => res.json())
       .then(async (data) => {
-        console.log(data);
-        alert(data.token);
+        console.log(data + "thi is signup form data onresponse data base");
+
         try {
-          await AsyncStorage.setItem("token", data.token);
-          props.navigate.replace("Home");
+          // await AsyncStorage.setItem("token", data.token);
+          // props.navigate.replace("Home");
         } catch (e) {
           console.log("error in sinup form ", e);
         }
@@ -111,7 +111,7 @@ const Signiupscreen = (props) => {
               }}
             >
               <Label>Email</Label>
-              <InputText
+              <Input
                 value={email}
                 onChangeText={(text) => {
                   setEmail(text);
@@ -128,7 +128,7 @@ const Signiupscreen = (props) => {
               }}
             >
               <Label>Password</Label>
-              <InputText
+              <Input
                 secureTextEntry={true}
                 value={password}
                 onChangeText={(password) => {

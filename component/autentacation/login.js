@@ -5,7 +5,7 @@ import {
   Content,
   Form,
   Item,
-  InputText,
+  Input,
   Label,
   Button,
   Text,
@@ -17,7 +17,6 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 const LoginScreen = (props) => {
   const detectLogin = async () => {
-    console.log("Sohail");
     const token = await AsyncStorage.setItem("token");
     if (token) {
       props.navigation.replace("Home");
@@ -33,12 +32,12 @@ const LoginScreen = (props) => {
   const [password, setpassword] = useState("");
 
   const sendCred = async (props) => {
-    console.log(props);
-    fetch("https://cfac86950ae7.ngrok.io/signin", {
+    // console.log(props + "....this is login form data " + email, password);
+    fetch("https://9e4c184a750e.ngrok.io/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
       },
       body: {
         email: email,
@@ -47,18 +46,14 @@ const LoginScreen = (props) => {
     })
       .then((res) => res.json())
       .then(async (data) => {
-        console.log(data + "login data thi is");
-        alert(data.token);
         try {
           await AsyncStorage.setItem("token", data.token);
           console.log(data.token + "this  is login page");
-          props.navigate.replace("Home");
         } catch (e) {
-          console.log("error in sinup form ", e);
-          Alert(e);
+          console.log("error in login form ", e);
+          props.navigate.replace("Home");
         }
       });
-    alert(email);
   };
   return (
     <Container>
@@ -113,9 +108,9 @@ const LoginScreen = (props) => {
               }}
             >
               <Label>Email</Label>
-              <InputText
+              <Input
                 value={email}
-                onChange={(text) => {
+                onChangeText={(text) => {
                   setEmail(text);
                 }}
               />
@@ -130,10 +125,10 @@ const LoginScreen = (props) => {
               }}
             >
               <Label>Password</Label>
-              <InputText
+              <Input
                 secureTextEntry={true}
                 value={password}
-                onChange={(password) => {
+                onChangeText={(password) => {
                   setpassword(password);
                 }}
               />
