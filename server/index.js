@@ -26,9 +26,10 @@ mongoose.connection.on("error", (err) => {
 });
 
 app.get("/", requireToken, (req, res) => {
-  res.statusCode = 200;
-  console.log(req.user);
-  res.json({ cruntUser: req.user });
+  res.send({ email: req.user.email });
+  // res.statusCode = 200;
+  // console.log(req.user);
+  // res.json({ cruntUser: req.user });
   // res.send('your email is'+req.user.email,'your email is'+req.user.password);
 });
 

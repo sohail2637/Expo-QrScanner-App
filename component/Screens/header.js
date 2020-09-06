@@ -2,20 +2,49 @@ import React, { Component } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
+import { Button } from "native-base";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const Header = (props) => {
+  const Logout = async (props) => {
+    await AsyncStorage.removeItem("token").then(() => {
+      props.Navigation.replace("login");
+    });
+  };
   return (
-    <TouchableOpacity
-      style={{ backgroundColor: "lightblue", marginTop: 30 }}
-      onPress={() => {
-        props.Navigation.navigate("draweropen");
+    <View
+      style={{
+        marginTop: 35,
+        backgroundColor: "#3681EA",
+        flexDirection: "row",
       }}
     >
-      <View style={{ margin: 5 }}>
-        <Ionicons name="md-menu" size={32} color="black" />
+      <TouchableOpacity
+        // style={{ backgroundColor: "lightblue", marginTop: 30 }}
+        onPress={() => {
+          props.Navigation.navigate("draweropen");
+        }}
+      >
+        <Ionicons
+          name="md-menu"
+          size={42}
+          color="black"
+          style={{ marginLeft: 25 }}
+        />
         {/* <Text>this app</Text>                 */}
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+      <Button
+        style={{
+          marginLeft: 240,
+        }}
+        onPress={() => {
+          Logout();
+          alert("this is log out");
+        }}
+      >
+        <Text>Logout</Text>
+      </Button>
+    </View>
   );
 };
 

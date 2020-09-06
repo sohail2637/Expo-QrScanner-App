@@ -1,11 +1,11 @@
-import React, { Component, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Header,
   Content,
   Form,
   Item,
-  Input,
+  InputText,
   Label,
   Button,
   Text,
@@ -14,20 +14,24 @@ import {
 } from "native-base";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { KeyboardAvoidingView } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
+import AsyncStorage from "@react-native-community/async-storage";
 
 // export default class FloatingLabelExample extends Component {
 const Signiupscreen = (props) => {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = { loading: true };
-  // }
+  useEffect(async () => {
+    const token = await AsyncStorage.setItem("token");
+    if (token) {
+      props.navigation.navigate("login");
+    } else {
+      setLogded(false);
+    }
+  }, []);
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
 
-  SignupDataPost = () => {
-    // alert(email);
-    fetch("https://10.0.2.2:3000/signup", {
+  const sendCred = async () => {
+    console.log(email, password);
+    fetch("https://cfac86950ae7.ngrok.io/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,12 +43,24 @@ const Signiupscreen = (props) => {
       }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then(async (data) => {
+        console.log(data);
+        alert(data.token);
+        try {
+          await AsyncStorage.setItem("token", data.token);
+          props.navigate.replace("Home");
+        } catch (e) {
+          console.log("error in sinup form ", e);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-  // render() {
+
   return (
     <Container>
-      <Content>
+      <Content style={{ backgroundColor: "#b3b3b3" }}>
         <KeyboardAvoidingView behavior="padding">
           <Form>
             <Text
@@ -95,9 +111,9 @@ const Signiupscreen = (props) => {
               }}
             >
               <Label>Email</Label>
-              <Input
+              <InputText
                 value={email}
-                onChange={(text) => {
+                onChangeText={(text) => {
                   setEmail(text);
                 }}
               />
@@ -112,10 +128,10 @@ const Signiupscreen = (props) => {
               }}
             >
               <Label>Password</Label>
-              <Input
+              <InputText
                 secureTextEntry={true}
                 value={password}
-                onChange={(password) => {
+                onChangeText={(password) => {
                   setpassword(password);
                 }}
               />
@@ -129,7 +145,7 @@ const Signiupscreen = (props) => {
                 marginRight: 18,
                 backgroundColor: "#1e90ff",
               }}
-              onPress={() => SignupDataPost()}
+              onPress={() => sendCred()}
             >
               <Text>Signup</Text>
             </Button>

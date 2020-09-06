@@ -1,9 +1,10 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-// import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-community/async-storage";
 
 import Header from "./component/Screens/header";
 
@@ -14,19 +15,18 @@ import AboutCommunitey from "./component/Screens/about-commuitey-screen";
 import HelpScreen from "./component/Screens/help-screen";
 import LoginScreen from "./component/autentacation/login";
 import SignupScreen from "./component/autentacation/signup";
+// erro solution of fount
+import { Font } from "expo";
 
-// const drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
+const drawer = createDrawerNavigator();
 
-function App(props) {
+const DrawerRoutes = (props) => {
   return (
-    <NavigationContainer>
-      {/* // <Header style={{}} /> */}
-      <Stack.Navigator headerMode="none">
-        <Stack.Screen name="signup" component={SignupScreen} />
-        <Stack.Screen name="login" component={LoginScreen} />
-      </Stack.Navigator>
-      {/* <drawer.Navigator
+    <>
+      <Header />
+      <drawer.Navigator
+        initialRouteName="Home"
         screenOptions={(props) => ({
           tabBarIcon: ({ Focused, color, size }) => {
             let iconName;
@@ -82,8 +82,47 @@ function App(props) {
           options={{ title: "Help" }}
           component={HelpScreen}
         />
-      </drawer.Navigator>  */}
+      </drawer.Navigator>
+    </>
+  );
+};
+
+function App(props) {
+  const [isLoded, setLogded] = useState(true);
+
+  const detectLogin = async () => {
+    const token = await AsyncStorage.setItem("token");
+    if (token) {
+      setLogded(true);
+    } else {
+      setLogded(false);
+    }
+  };
+
+  useEffect(() => {
+    (async () =>
+      await Font.loadAsync({
+        Roboto: require("native-base/Fonts/Roboto.ttf"),
+        Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+      }))();
+    detectLogin();
+  }, []);
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator headerMode="none">
+        <Stack.Screen name="login" component={LoginScreen} />
+        <Stack.Screen name="signup" component={SignupScreen} />
+        <Stack.Screen name="Home" component={DrawerRoutes} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
 export default App;
+
+// font erro solutation
+// add in package.json
+
+// "rnpm": {
+//   "assets": ["./path to your fonts"]
+// },
